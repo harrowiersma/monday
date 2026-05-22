@@ -209,6 +209,13 @@ h4 {
   color: #5f7388;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
+.foot-link {
+  color: #93a4b8;
+  text-decoration: underline;
+}
+.foot-link:hover {
+  color: var(--accent-bright);
+}
 
 .main {
   flex: 1;
@@ -554,6 +561,19 @@ table.heatmap tbody td {
 }
 .cell-none:hover {
   background: var(--cell-none-hover);
+}
+
+/* Sticky first column — function/row labels stay pinned to the left while
+   the data-domain columns scroll horizontally. */
+table.heatmap thead th:first-child,
+table.heatmap tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  box-shadow: 2px 0 6px -1px rgba(0, 0, 0, 0.22);
+}
+table.heatmap thead th:first-child {
+  z-index: 3;
 }
 
 .legend {

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { ExportDocument } from '../lib/exportModel'
 import { requestExport } from '../lib/export'
 import { recalledEmail } from '../lib/storage'
@@ -53,12 +54,13 @@ export default function ExportButton({
         ⤓ {label}
       </button>
 
-      {open && (
-        <div
-          className="modal-backdrop"
-          onClick={(e) => e.target === e.currentTarget && close()}
-        >
-          <div className="modal" role="dialog" aria-modal="true">
+      {open &&
+        createPortal(
+          <div
+            className="modal-backdrop"
+            onClick={(e) => e.target === e.currentTarget && close()}
+          >
+            <div className="modal" role="dialog" aria-modal="true">
             {status === 'done' ? (
               <>
                 <h2>Check your inbox</h2>
@@ -116,9 +118,10 @@ export default function ExportButton({
                 </div>
               </>
             )}
-          </div>
-        </div>
-      )}
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   )
 }

@@ -109,7 +109,15 @@ export default function App() {
           </button>
           <div style={{ marginTop: 12 }}>
             Works offline · data stays on this device
-            <br />© 2026 Harro M. Wiersma
+            <br />© 2026{' '}
+            <a
+              className="foot-link"
+              href="https://harro.ch"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Harro M. Wiersma
+            </a>
           </div>
         </div>
       </aside>
