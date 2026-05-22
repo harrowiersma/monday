@@ -510,13 +510,17 @@ label.field > span .hint,
   background: var(--panel-2);
 }
 table.heatmap {
-  border-collapse: collapse;
+  /* 'separate' (not 'collapse') so position:sticky works on cells in
+     every browser, including Safari. */
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   min-width: 560px;
 }
 table.heatmap th,
 table.heatmap td {
-  border: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   padding: 0;
   text-align: center;
 }
