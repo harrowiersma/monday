@@ -1,0 +1,874 @@
+{
+  "$schema": "./gcf-framework.schema.json",
+  "meta": {
+    "id": "gcf-framework",
+    "version": "1.0.0",
+    "title": "Governance Context Foundation — Structured Framework",
+    "description": "Machine-readable encoding of the frameworks in 'Don't Screw Up Your Data Governance: a Context-Driven Framework for the Next Decade' by Harro M. Wiersma. Source of truth for App A (Monday Morning Companion) and App B (GCF Advisor). All content is extracted from the book; nothing is invented.",
+    "source": {
+      "book": "Don't Screw Up Your Data Governance: a Context-Driven Framework for the Next Decade",
+      "author": "Harro M. Wiersma",
+      "edition": "First Edition, 2026",
+      "copyright": "© 2026 Harro M. Wiersma"
+    },
+    "extractedOn": "2026-05-21"
+  },
+
+  "gcfLayers": {
+    "label": "The Six Layers of the Governance Context Foundation",
+    "source": "Chapter 4 (The Six Layers of the Governance Context Foundation); Appendix A (Reference Architecture)",
+    "summary": "Six integrated layers form one coherent foundation. They are not separate silos but lenses that refract governance through different angles, and they depend on each other. Together they answer every question a governance decision-maker should ask. You can implement them at different maturity levels, but you cannot remove any without creating a blind spot.",
+    "completenessTest": "When someone wants to use data they ask six questions, and the six layers answer all six: What is this data? (Ontology); Where did it come from and where does it go? (Lineage); Are they allowed to use it? (Policies); Is it good enough? (Quality); Who decides and who is responsible? (Ownership); Are there external constraints? (Regulatory).",
+    "layers": [
+      {
+        "id": "business-ontology",
+        "number": 1,
+        "name": "Business Ontology",
+        "governanceQuestion": "What is this data — what does our organisation actually mean by it?",
+        "ownership": "Business leaders and data stewards, with architecture support. Driven by how the business thinks about domains, not by systems structure.",
+        "description": "A shared language: the concepts your organisation uses to describe its business, and how those concepts relate. Not a glossary, not a data dictionary — a living map of what your organisation actually means when it says 'customer', 'product', 'revenue', 'risk'. It defines the core entities the organisation cares about and, for each, captures the authoritative definition, the relationships, and the variants. Owned by business stakeholders, but maintained with the rigour of code.",
+        "components": [
+          "Entity definitions: what the organisation means by Customer, Account, Product, Order",
+          "How entities relate to each other (an Account belongs to a Customer; a Product sits inside an Order)",
+          "Classification structures such as product categories or customer segments",
+          "Business rules that constrain entity behaviour (e.g. every Customer must have at least one Account)"
+        ],
+        "missingConsequence": "Missing Ontology means you cannot explain what the data means. Decisions become ambiguous."
+      },
+      {
+        "id": "data-lineage",
+        "number": 2,
+        "name": "Data Lineage and Relationships",
+        "governanceQuestion": "Where did this data come from and where does it go?",
+        "ownership": "Data architects and engineers. The work is technical, but the value is squarely business-facing.",
+        "description": "Captures how data actually flows through the organisation to represent the ontology's concepts: which systems source which entities, what transformations happen between source and consumption, which calculations are applied, where aggregations occur. This is active metadata — reflecting the current state of systems, not an outdated diagram. Lineage flips governance from reactive to predictive: you see ripple effects before you make a move.",
+        "components": [
+          "Which source systems hold which entities",
+          "The paths data takes as it is extracted, transformed, and loaded",
+          "Analytical datasets and what they depend on upstream",
+          "Reports, dashboards, and the datasets feeding them",
+          "Field-level traceability: for any output field, where it originally came from"
+        ],
+        "missingConsequence": "Missing Lineage means you do not know impact. Decisions become risky."
+      },
+      {
+        "id": "policies-and-rules",
+        "number": 3,
+        "name": "Policies and Rules",
+        "governanceQuestion": "Are we allowed to use this data, and under what conditions?",
+        "ownership": "Governance leaders, compliance, and risk teams. Policies reflect organisational intent.",
+        "description": "Captures the rules of the game — who can access what, what transformations are allowed, what quality standards must be met, what encryption is required. It is policy-as-code: it encodes policy into queryable, machine-readable form, not replacing human policy language but translating it into logic that systems can apply. This makes policies simultaneously more precise and more enforceable.",
+        "components": [
+          "Governance policies covering usage, access, and retention",
+          "Business rules: when data must be cleansed, how datasets can be combined, what validation applies",
+          "Regulatory rules the organisation is legally required to follow",
+          "The mapping of which policies apply to which data",
+          "Change history: how policies have evolved, and why"
+        ],
+        "missingConsequence": "Missing Policies means you have no prescriptive guidance. Decisions become ad hoc."
+      },
+      {
+        "id": "quality-intelligence",
+        "number": 4,
+        "name": "Quality Intelligence",
+        "governanceQuestion": "Is the data good enough for the decision being made?",
+        "ownership": "Data quality teams with input from stewards and analytics leaders. Assessment is technical; acceptable-quality decisions are business decisions.",
+        "description": "Records what the organisation actually knows about the quality, timeliness, and reliability of its data — measurements, not aspirations. It tracks metrics, thresholds, and dependencies, records known issues and ongoing improvements, and also tracks what is not known (the governance backlog). Quality only matters if people can see it before they use the data.",
+        "components": [
+          "Quality scores per dataset across dimensions: completeness, accuracy, consistency, timeliness",
+          "Assessment results over time, so trends are visible rather than just snapshots",
+          "A register of known quality issues and their remediation status",
+          "The rules applied to measure quality, and how well those rules perform",
+          "Use-case-specific thresholds: 'good enough' for analytics may not be good enough for regulatory reporting"
+        ],
+        "missingConsequence": "Missing Quality means you do not know fitness for purpose. Decisions become reckless."
+      },
+      {
+        "id": "ownership-and-accountability",
+        "number": 5,
+        "name": "Ownership and Accountability",
+        "governanceQuestion": "Who decides, and who is responsible if this data goes wrong?",
+        "ownership": "Governance leadership with input from all functions. Ownership is structural, not technical.",
+        "description": "The most neglected layer. It captures the human side of governance: who is the business owner, the technical steward, the subject matter expert; what their escalation paths are; what SLAs they have committed to; what decisions fall within their remit and what requires escalation. It is the bridge between governance as a set of rules and governance as a human practice. Good governance is not 'no exceptions'; it is 'clear escalation'.",
+        "components": [
+          "Data steward assignments (who is responsible for each dataset or domain)",
+          "Process owners (who owns each governance process)",
+          "Policy owners (who is accountable for policy accuracy and relevance)",
+          "Decision authorities (who has authority to make specific governance decisions)",
+          "Escalation paths (who decides when disputes arise)"
+        ],
+        "missingConsequence": "Missing Ownership means you have no accountability. Decisions become invisible."
+      },
+      {
+        "id": "regulatory-context",
+        "number": 6,
+        "name": "Regulatory and External Context",
+        "governanceQuestion": "What external requirements are we operating under?",
+        "ownership": "Compliance and legal teams with risk and audit input. Regulatory context is external; organisational interpretation is internal.",
+        "description": "The lens through which all governance happens: which regulations apply to the organisation, its data, and its geography; which industry standards it is committed to; what contractual obligations exist. It is not static — regulations change constantly. The layer tracks which requirements apply to which data, systems, and user populations, and flags when the organisation has drifted out of compliance. For global organisations it handles the complexity of jurisdiction.",
+        "components": [
+          "Applicable regulations and their requirements (GDPR, CCPA, industry-specific regulations)",
+          "Regulatory interpretations and organisational positions",
+          "Compliance assessment results",
+          "Regulatory change tracking and impact assessment",
+          "Audit requirements and results"
+        ],
+        "missingConsequence": "Missing Regulatory context means you do not know external constraints. Decisions become non-compliant."
+      }
+    ]
+  },
+
+  "implementationPhases": {
+    "label": "The Five-Phase Implementation Roadmap",
+    "source": "Chapter 15 (The Implementation Roadmap); Appendix F (Implementation Checklists by Phase)",
+    "summary": "A 12–15 month journey from fragmented governance to a unified context foundation. Five phases, each with a clear outcome, each building on the previous one. Crucially, each phase delivers quick wins while building towards the larger vision — value at every phase, not at the end.",
+    "totalTimeline": "12–15 months to full operational capability for a mid-sized organisation",
+    "phases": [
+      {
+        "id": "phase-1",
+        "number": 1,
+        "name": "Foundation Assessment",
+        "duration": "8–12 weeks",
+        "dependsOn": [],
+        "outcome": "A clear picture: what governance context you manage, where it lives, who owns it, what is working and what is broken, and what the cost of fragmentation actually looks like in your organisation. You are ready to build the foundation.",
+        "description": "Diagnostic phase. You cannot transform what you cannot see. Map your current governance context landscape — what artifacts exist, where they live, who owns them, how they are maintained, how they are used. Aim for representative, not exhaustive. This is where you ground your ROI assumptions and build conviction in the programme.",
+        "quickWin": {
+          "name": "The Context Audit Trail",
+          "description": "While assessing, capture the audit trail of recent governance decisions. Pick one from the past six months and document what context would have made it faster or better. That audit trail becomes your compelling story, grounded in real experience."
+        },
+        "checklist": [
+          "Complete governance artifact inventory across all functions",
+          "Document current governance decision processes and pain points",
+          "Measure baseline governance decision velocity",
+          "Identify major governance inconsistencies and conflicts",
+          "Confirm executive sponsorship and commitment",
+          "Create stakeholder communication plan",
+          "Build case studies of governance problems from recent projects",
+          "Establish measurement baseline for ROI tracking"
+        ],
+        "deliverables": ["fragmentation-heat-map", "decision-velocity-baseline"]
+      },
+      {
+        "id": "phase-2",
+        "number": 2,
+        "name": "Core Context Layer",
+        "duration": "12–16 weeks",
+        "dependsOn": ["phase-1"],
+        "outcome": "The foundation structure: a shared ontology, mapped lineage, clear ownership, governance policies. Not automated yet, not integrated with systems yet — but coherent and accessible. It is the single source of truth for governance context.",
+        "description": "The most intensive phase — where structural choices are made. Build the foundation: start with Business Ontology (the shared vocabulary), then map Data Lineage in business-meaningful ways, establish Ownership and Accountability, and build Policies and Rules governing how the foundation itself is maintained. Apply the 80/20 principle ruthlessly: focus on the entities, policies, and lineage paths covering 80% of governance decisions.",
+        "quickWin": {
+          "name": "The Governance Workspace",
+          "description": "Stand up a simple shared workspace where governance leaders can access and refine context (a wiki, Confluence space, or shared document structure). Announce it, but do not force it — leaders will quickly show you which parts are useful."
+        },
+        "checklist": [
+          "Define Business Ontology (entities, relationships, hierarchies)",
+          "Document Data Lineage at business level",
+          "Map Policies to data entities and processes",
+          "Identify Quality Intelligence requirements",
+          "Assign Ownership for each major context domain",
+          "Document Regulatory Context and compliance requirements",
+          "Select and configure technology platform (if needed)",
+          "Establish governance policies for the foundation itself",
+          "Train initial users on foundation access and update"
+        ],
+        "deliverables": ["entity-definition-card"]
+      },
+      {
+        "id": "phase-3",
+        "number": 3,
+        "name": "Process Integration",
+        "duration": "16–20 weeks",
+        "dependsOn": ["phase-2"],
+        "outcome": "Governance processes are now fed by shared context. Decisions are made with better information, audit trails are automatic, change impact is calculated automatically, and time to governance decisions drops measurably.",
+        "description": "Where the foundation actually starts to affect how work gets done. Integrate the context foundation into the processes where decisions get made: access governance, the data governance change process, compliance impact assessment, and risk and audit processes. Approval becomes faster because context is pre-loaded.",
+        "quickWin": {
+          "name": "The Compliance Report",
+          "description": "Take a pending regulatory question and use the foundation to answer it. Show the CFO: 'We used to take three weeks. We just answered it in three hours because the context is integrated.'"
+        },
+        "checklist": [
+          "Map foundation to access governance workflows",
+          "Create context-aware decision templates",
+          "Integrate foundation into policy change processes",
+          "Enable regulatory impact assessment workflows",
+          "Connect quality intelligence to data governance decisions",
+          "Update compliance documentation processes",
+          "Train governance leaders on new processes",
+          "Run pilot workflows and gather feedback"
+        ],
+        "deliverables": ["context-aware-decision-template"]
+      },
+      {
+        "id": "phase-4",
+        "number": 4,
+        "name": "AI Enablement",
+        "duration": "12–16 weeks",
+        "dependsOn": ["phase-3"],
+        "outcome": "Routine governance largely runs itself. AI agents handle repetitive decisions while humans keep oversight; messy, judgement-heavy decisions still land on people's desks, but with full AI-generated context and recommendations. You scale governance without hiring proportionally.",
+        "description": "Where the foundation becomes genuinely powerful — you open it to AI agents and automation: automated impact analysis, governance recommendations, automated compliance mapping, and AI model governance. AI agents query the foundation and generate preliminary reports for human review.",
+        "quickWin": {
+          "name": "The Automated Weekly Report",
+          "description": "Set up an automated weekly governance health-check report to the board or executives, pulled straight from the foundation with no manual assembly. When executives see a governance health check that writes itself, they stop asking whether the programme is worth funding."
+        },
+        "checklist": [
+          "Define which decisions are candidates for automation",
+          "Build recommendation engine for governance decisions",
+          "Implement automated impact analysis",
+          "Create governance anomaly detection",
+          "Enable compliance report generation",
+          "Test AI agents with human oversight",
+          "Establish audit trails for AI-driven decisions",
+          "Measure decision time reduction and quality improvement"
+        ],
+        "deliverables": []
+      },
+      {
+        "id": "phase-5",
+        "number": 5,
+        "name": "Continuous Learning",
+        "duration": "Ongoing",
+        "dependsOn": ["phase-4"],
+        "outcome": "The foundation learns on its own. Internal experience and external intelligence accumulate into a genuine competitive edge — something no competitor can replicate because it reflects your specific organisation's history and learning.",
+        "description": "The phase that never ends, which is the point. The foundation learns continuously from internal operational data and decisions, external context (regulatory shifts, industry standards, emerging practices), and stakeholder feedback. Governance stops being reactive.",
+        "quickWin": null,
+        "checklist": [
+          "Establish context analytics and pattern analysis",
+          "Create feedback mechanisms from governance users",
+          "Implement regulatory change monitoring",
+          "Set up quarterly context quality reviews",
+          "Build external governance context integration",
+          "Measure governance maturity progression",
+          "Plan annual governance strategy evolution",
+          "Establish succession planning for governance leaders"
+        ],
+        "deliverables": []
+      }
+    ]
+  },
+
+  "maturityModel": {
+    "label": "GCF Maturity Assessment",
+    "source": "Chapter 15 (Governance Maturity Model Aligned with GCF); Appendix B (GCF Maturity Assessment Template)",
+    "summary": "A five-level maturity model for assessing progress in implementing context-driven governance, aligned with the Chapter 15 phases. Assess each of the six GCF layers independently — most organisations are at different maturity levels for different layers, and that is normal.",
+    "scoring": {
+      "perLayerScale": [1, 5],
+      "totalRange": [6, 30],
+      "instructions": "For each of the six GCF layers, score against the five levels using the 1–5 scale. Add the six layer scores for a total between 6 (fully ad hoc) and 30 (fully intelligent). Document your scores, date the assessment, and repeat quarterly. The trend matters more than the absolute number — if you are not improving, ask whether it is a technology gap, an ownership gap, or a commitment gap.",
+      "recommendedSequence": "Most implementations advance Ontology and Ownership first, then Lineage and Policies, then Quality and Regulatory Context."
+    },
+    "levels": [
+      {
+        "level": 1,
+        "name": "Ad Hoc",
+        "points": 1,
+        "scoringGuide": "Context for this layer is fragmented, undocumented, or lives primarily in people's heads.",
+        "summary": "Governance context exists but is fragmented. Each function maintains its own view. Decisions are made with partial context. No integrated audit trail. This is where most organisations start.",
+        "characteristics": [
+          "Governance context is fragmented across multiple systems, documents, and people's heads",
+          "No unified ontology; different functions use different terminology",
+          "Lineage is partially documented or not at all",
+          "Policies exist but are not consistently connected to data",
+          "Ownership is unclear or overlapping",
+          "Governance decisions require extensive escalation",
+          "Audit and compliance processes are largely manual"
+        ],
+        "assessmentQuestions": [
+          "How many governance artefacts live outside any centralised repository?",
+          "Do different teams use consistent definitions for key entities?",
+          "Can you quickly determine which systems touch a specific type of data?",
+          "How many escalations are required for a typical governance decision?"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Defined",
+        "points": 2,
+        "scoringGuide": "Context is documented and published, but not yet integrated into governance workflows.",
+        "summary": "Governance context is explicitly defined and mapped. Ownership is clear. There is a single source of truth, even if not yet integrated with all systems. People can make decisions with the full picture, even though pulling that picture together still takes legwork.",
+        "characteristics": [
+          "Core governance context is written down — it exists as a document, not just knowledge in people's heads",
+          "A Business Ontology is in place and people know about it",
+          "Data Lineage has been mapped, at least at the business level",
+          "The most important policies are documented and published where people can find them",
+          "Major data domains have named owners",
+          "There is one place people go for governance context, even if underlying systems are not yet wired together",
+          "People actually reference this shared context when making governance decisions"
+        ],
+        "assessmentQuestions": [
+          "Can you point to a documented Business Ontology?",
+          "Does every governance function have access to the core context?",
+          "Would a new hire be able to look up who owns what?",
+          "When a governance decision gets made, does the shared context actually get consulted?"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Integrated",
+        "points": 3,
+        "scoringGuide": "Context is actively used in governance decision-making; processes pull from it automatically.",
+        "summary": "Shared context is woven into the governance processes that matter — access decisions, change management, compliance assessments all pull from the same foundation. Decision turnaround drops noticeably and audit trails are generated automatically.",
+        "characteristics": [
+          "Context is woven into the decision processes themselves, not something people look up separately",
+          "When someone requests dataset access, the workflow pulls relevant context without anyone searching for it",
+          "Before a policy change goes through, its impact is assessed against lineage and the ontology",
+          "Regulatory impact assessments query the foundation directly",
+          "Quality scores show up at the point where data usage decisions happen",
+          "Every governance decision is documented automatically, creating an audit trail you do not have to build after the fact",
+          "You can measure how much faster decisions are getting"
+        ],
+        "assessmentQuestions": [
+          "Are governance workflows pulling context on their own, or are people still copy-pasting from spreadsheets?",
+          "Can you quantify time savings in governance decisions?",
+          "Would an auditor find a complete, automatic trail for recent decisions?",
+          "How many decisions still require escalation that should not?"
+        ]
+      },
+      {
+        "level": 4,
+        "name": "Automated",
+        "points": 4,
+        "scoringGuide": "Routine governance decisions involving this layer are automated with human oversight.",
+        "summary": "Routine governance decisions run on their own — standard access approvals, known-pattern compliance checks — with humans kept in the loop for oversight. AI agents handle impact analysis, generate recommendations, and flag risks. You scale governance without hiring proportionally.",
+        "characteristics": [
+          "Routine work runs on its own: standard access approvals and known-pattern compliance checks are automated with human oversight",
+          "AI agents handle impact analysis, generate recommendations, and flag risks before they escalate",
+          "Most policy enforcement happens automatically rather than through manual review",
+          "Compliance assessments are generated by the system, not assembled by hand",
+          "The system spots governance anomalies; people no longer have to stumble across them",
+          "For complex, judgment-heavy decisions, AI-generated context and analysis arrive before the human decision-maker sits down",
+          "You are scaling governance without hiring proportionally more governance staff"
+        ],
+        "assessmentQuestions": [
+          "What fraction of governance decisions run end-to-end without manual intervention?",
+          "Of the automated ones, which still involve a human sign-off?",
+          "Ask your governance team: how much of their week goes to routine processing versus thinking about strategy?",
+          "Are your governance metrics actually improving quarter over quarter?"
+        ]
+      },
+      {
+        "level": 5,
+        "name": "Intelligent",
+        "points": 5,
+        "scoringGuide": "Context is self-updating, predictive, and informs strategic governance decisions.",
+        "summary": "The foundation genuinely teaches itself. Internal patterns and external signals feed back in continuously. Governance stops being reactive — you spot issues forming before they hit, a fundamentally different way to operate.",
+        "characteristics": [
+          "Governance context is self-learning and continuously evolving",
+          "Patterns in governance data inform policy recommendations",
+          "Governance risks are predicted before they surface",
+          "External regulatory and industry context is automatically ingested and assessed",
+          "Governance is proactive rather than reactive",
+          "The organisation anticipates governance challenges",
+          "Governance supports organisational strategy"
+        ],
+        "assessmentQuestions": [
+          "Does the foundation learn from internal governance patterns?",
+          "Are governance risks identified before they surface?",
+          "Is external governance context automatically integrated?",
+          "Is governance considered a strategic business capability?"
+        ]
+      }
+    ],
+    "interpretationBands": [
+      {
+        "id": "fragmented",
+        "label": "Significant fragmentation",
+        "min": 6,
+        "max": 11,
+        "interpretation": "A score below 12 indicates significant fragmentation. Governance context is scattered and not yet pulled into a single source of truth. Priority: define and document the core context for each layer."
+      },
+      {
+        "id": "defined-not-integrated",
+        "label": "Defined but not integrated",
+        "min": 12,
+        "max": 18,
+        "interpretation": "A score of 12–18 suggests the organisation has defined context but has not integrated it into workflows. This is the most common range for organisations beginning the journey. Priority: bring the lower-scoring layers up to Integrated, weaving context into the processes where decisions are made."
+      },
+      {
+        "id": "integration-underway",
+        "label": "Integration underway",
+        "min": 19,
+        "max": 30,
+        "interpretation": "A score above 18 indicates integration is underway. Priority should shift to automation across all six layers and continuous improvement."
+      }
+    ],
+    "exampleAssessment": {
+      "label": "Realistic starting assessment for a mid-sized organisation (Appendix A)",
+      "scores": {
+        "business-ontology": 2,
+        "data-lineage": 2,
+        "policies-and-rules": 3,
+        "quality-intelligence": 2,
+        "ownership-and-accountability": 3,
+        "regulatory-context": 3
+      },
+      "total": 15,
+      "note": "Total 15 of 30 — a typical starting point for an organisation that has invested in governance but not yet integrated its context into a unified foundation. The priority would be to bring the lower-scoring layers (Ontology, Lineage, Quality) up to the Integrated level, then focus on automation across all six."
+    }
+  },
+
+  "boundedAutonomyZones": {
+    "label": "Bounded Autonomy Zones",
+    "source": "Chapter 5 (Designing for Bounded Autonomy); Appendix A (Bounded Autonomy Zones)",
+    "summary": "AI agents operating within the GCF need clearly defined boundaries. Different decisions have different stakes, so governance decision APIs are designed with three layers of autonomy. The principle: automate mercilessly where you can, escalate intelligently where you must. Most organisations spend too much time on Red Zone decisions and not enough effort automating Green Zone decisions.",
+    "zones": [
+      {
+        "id": "green",
+        "name": "Green Zone — Automatic Approval",
+        "color": "#2e7d32",
+        "rule": "Fully automated. The API handles it, logs it, and moves on. No human needed.",
+        "markers": [
+          "The policy covers it without wiggle room",
+          "The same decision has been made dozens of times before without anyone escalating",
+          "No regulatory exception is in play",
+          "No quality red flags"
+        ],
+        "examples": [
+          "Standard data quality checks against defined thresholds",
+          "Routine access requests from pre-approved roles to pre-approved datasets",
+          "Read-only access to a published dataset",
+          "Duplicate detection and flagging (not auto-merge)",
+          "Metadata enrichment from verified external sources",
+          "Scheduled compliance report generation"
+        ]
+      },
+      {
+        "id": "amber",
+        "name": "Amber Zone — AI Recommends, Human Decides",
+        "color": "#f9a825",
+        "rule": "Routine exception handling. Follows a predictable, repeatable pattern but someone with authority must approve. The system assembles the context automatically; the human provides the sign-off.",
+        "markers": [
+          "A human needs to be involved, but the process is repeatable",
+          "The context can be assembled automatically",
+          "The escalation path is obvious",
+          "Everything is logged"
+        ],
+        "examples": [
+          "New use case approvals (AI prepares the assessment, steward approves)",
+          "Cross-border data transfer requests (AI checks policy compliance, privacy officer decides)",
+          "Golden record merge decisions for high-confidence matches (AI recommends, steward confirms)",
+          "Policy exception requests (AI assesses risk, governance lead approves)",
+          "Quality remediation prioritisation (AI ranks issues by impact, quality team decides allocation)",
+          "Sensitive data access where the data owner must sign off"
+        ]
+      },
+      {
+        "id": "red",
+        "name": "Red Zone — Human Only",
+        "color": "#c62828",
+        "rule": "Genuinely complex decisions where reasonable people disagree. The API recognises it cannot answer, pulls together everything that might help, and routes to the right human or committee. No API should pretend to make this call.",
+        "markers": [
+          "The policy is vague or silent on the scenario",
+          "The stakes are high enough that getting it wrong would matter",
+          "Smart, well-intentioned people in your organisation would disagree about the right answer"
+        ],
+        "examples": [
+          "Changes to entity definitions in the Business Ontology",
+          "New regulatory interpretations and organisational positions",
+          "Escalated disputes between domain owners",
+          "Decisions involving customer rights (data deletion requests, subject access requests)",
+          "Any decision that creates legal liability or sets organisational precedent",
+          "Balancing competing values (privacy vs. innovation, speed vs. caution)"
+        ]
+      }
+    ],
+    "humanJudgmentDecisions": {
+      "note": "Some decisions are fundamentally about values and judgment and should remain in human hands, though the GCF can hugely improve decision quality by pre-assembling context.",
+      "decisions": [
+        "Defining what 'fairness' means in a given context and whether a proposed use of data is fair under that definition",
+        "Balancing competing values: privacy vs. innovation, risk vs. opportunity, cost vs. benefit",
+        "Accepting exceptions to policy because the business case is strong enough to justify the risk",
+        "Deciding which new regulations matter most and where to focus compliance effort",
+        "Choosing among multiple technically compliant approaches based on strategic intent",
+        "Resolving conflicts between different stakeholders"
+      ]
+    }
+  },
+
+  "mondayMorningDeliverables": {
+    "label": "Monday Morning Deliverables",
+    "source": "End-of-chapter exercises, Chapters 1–13",
+    "summary": "One practical exercise at the end of every chapter, turning the chapter's ideas into a concrete artifact the reader can produce.",
+    "deliverables": [
+      {
+        "id": "ch1-diagnose-fragmentation",
+        "chapter": 1,
+        "chapterTitle": "The Governance Paradox",
+        "title": "Diagnose Your Fragmentation",
+        "intro": "A two-part exercise that reveals fragmentation, then visualises it. This is where you move from feeling fragmentation to seeing it.",
+        "parts": [
+          {
+            "name": "Part 1: Definition Audit",
+            "instructions": "Bring together leads from data quality, privacy, master data governance, analytics, architecture, and compliance — practitioners, not just titles. Ask three questions about one critical dataset (customer, product, supplier, transactional): What is our definition of [this data element]? Where does this definition live, who maintains it, and how is it communicated? If the definition needed to change, how would we ensure every system, team, and process knew? Listen for pauses, glances, evasive answers. Same answer from every function = integration. Different definitions, unclear provenance, nervous laughter = fragmentation. Document it; name each conflicting definition; note who believes which is correct."
+          },
+          {
+            "name": "Part 2: Fragmentation Heat Map",
+            "instructions": "Map which governance functions touch which data domains to reveal coordination burden. Build a grid: data domains across the top, governance functions down the left. Mark each cell where a function has responsibility, influence, or a touch point — be generous. Colour-code each mark green (clear ownership, decision rights, documented process), yellow (unclear ownership, ambiguous decision rights, ad hoc decision-making), or red (active conflict, confusion, or disagreement). Count yellow and red cells — that is your fragmentation score. Columns where multiple functions overlap are your coordination nightmares.",
+            "toolId": "fragmentation-heat-map"
+          }
+        ]
+      },
+      {
+        "id": "ch2-map-context-sources",
+        "chapter": 2,
+        "chapterTitle": "Context. The Missing Foundation",
+        "title": "Map Your Current Context Sources",
+        "intro": "For one critical dataset in your organisation, locate where each kind of context lives — and discover how disconnected it is.",
+        "prompts": [
+          "Where does business context live? (What does this dataset represent? Why does it exist? Who depends on it?)",
+          "Where does governance context live? (What rules apply? What policies govern access? What quality standards exist?)",
+          "Where does history context live? (Why is it structured this way? What changed and when? What was the rationale?)",
+          "Where does relationship context live? (What other datasets does this feed? What depends on it?)",
+          "If someone wanted to use this data for a purpose it was never intended for, who is the one person they would call to understand the risks? If nobody can answer, your Ownership and Accountability layer is missing.",
+          "Is any of this integrated, or does each source live independently?"
+        ]
+      },
+      {
+        "id": "ch3-readiness-for-integration",
+        "chapter": 3,
+        "chapterTitle": "The Next Decade of Data Governance",
+        "title": "Assess Your Readiness for Integration",
+        "intro": "Answer these questions about your current governance. The more fragmentation you see, the more you have to gain from an integrated context foundation.",
+        "prompts": [
+          "Do your governance functions (quality, privacy, architecture, compliance, stewardship) operate with shared context, or do they maintain independent context?",
+          "How long does a straightforward governance decision take — weeks, months? If you wait more than a week, fragmentation is almost certainly dragging the process.",
+          "Can you trace a governance decision to the business rationale that prompted it? If not, governance context is implicit.",
+          "How much of your governance team's time is spent coordinating across functions versus doing actual governance work? More than 30% coordination signals fragmentation overhead.",
+          "Do you have a place where the complete governance context for a critical dataset lives, or is it scattered across documentation, meetings, email threads, and people's heads?"
+        ],
+        "followUp": "Then start the integration work: pick one critical dataset that crosses multiple governance domains, map all the governance context that exists for it, map where it lives, map what is missing. That map is your integration starting point."
+      },
+      {
+        "id": "ch4-governance-context-audit",
+        "chapter": 4,
+        "chapterTitle": "Anatomy of a Governance Context Foundation",
+        "title": "The Governance Context Audit",
+        "intro": "For each of your six core business entities (Customer, Product, Account, Order, etc.), run through this six-layer checklist. For each answer that was vague, speculative, or required you to phone someone, you have found a gap — those gaps are your governance foundation roadmap.",
+        "toolId": "governance-context-audit",
+        "layerChecklist": [
+          {
+            "layer": "business-ontology",
+            "question": "Can you write, in one paragraph, an authoritative definition of this entity? Can you list its necessary attributes? Can you list its primary relationships to other entities?"
+          },
+          {
+            "layer": "data-lineage",
+            "question": "Could you draw, right now, the path this entity takes from source systems through transformations to the places it is consumed? Do you know every pipeline that touches it?"
+          },
+          {
+            "layer": "policies-and-rules",
+            "question": "If someone asked you to list every policy that applies to this entity (access controls, encryption requirements, retention rules), could you do it without checking three different documents? Could a developer take your list and turn it into code?"
+          },
+          {
+            "layer": "quality-intelligence",
+            "question": "Do you actually measure the quality of this entity's data? Is anyone watching it continuously, or does quality only come up when something breaks? When it last degraded, did you know why?"
+          },
+          {
+            "layer": "ownership-and-accountability",
+            "question": "Can you name the person responsible if this entity's data goes wrong? What is their escalation path?"
+          },
+          {
+            "layer": "regulatory-context",
+            "question": "What regulations apply to this entity? How does this differ by geography?"
+          }
+        ]
+      },
+      {
+        "id": "ch5-design-governance-interfaces",
+        "chapter": 5,
+        "chapterTitle": "Making Context Accessible: For Humans and Machines",
+        "title": "Designing Your Governance Interfaces",
+        "intro": "Answer these questions about your current governance communication. For each answer that is 'no' or 'partially', you have an interface design opportunity.",
+        "prompts": [
+          "If a mid-level employee needs to know 'Can I use this dataset for this analysis?', what is the current process? How long does it take? How many steps?",
+          "Do you have a self-service portal where employees can explore governance requirements without contacting the governance team?",
+          "Can your systems query governance policies programmatically, or are policies locked in documents?",
+          "For decisions that should be automated (like granting access to non-sensitive, published data), are they automated, or still routed to humans?",
+          "For decisions that require human judgment, do you pre-assemble context to help humans decide quickly?",
+          "Can you trace a governance decision back to the policy that guided it, and forward to the outcome it had? Or do decisions disappear into a black box?"
+        ]
+      },
+      {
+        "id": "ch6-design-feedback-loops",
+        "chapter": 6,
+        "chapterTitle": "The Self-Learning Foundation",
+        "title": "Design Your Feedback Loops",
+        "intro": "For each of the four sources of intelligence, assess your current state. For each source where the answer is 'we don't really do this', there is an opportunity — even one loop, implemented well, transforms a static foundation into a living one.",
+        "prompts": [
+          "Internal Operational Data: Are you ingesting metadata from your data catalog, ETL systems, quality monitoring, and access control systems? How much is connected, and how much sits in its own silo?",
+          "External Context: Is anyone systematically watching for regulatory changes, industry benchmarks, or shifts in contractual obligations? When was the last time someone reviewed these?",
+          "Human Feedback: After a governance decision, do you follow up to see if it worked? Do you solicit feedback? Do you track outcomes?",
+          "Exceptions and Deviations: Do you analyse patterns in governance exceptions? Are these patterns discussed in governance forums? Do they drive policy changes?"
+        ]
+      },
+      {
+        "id": "ch7-integration-checklist",
+        "chapter": 7,
+        "chapterTitle": "Integrating ISO 38505, DAMA DMBoK, and the GCF",
+        "title": "The Integration Checklist",
+        "intro": "To move toward a unified governance operating model, answer these questions. For each 'no' answer, there is an opportunity to move toward integration — start with one.",
+        "prompts": [
+          "Do we have an explicit governance architecture showing how ISO 38505 principles, GCF layers, and DAMA knowledge areas connect? Can everyone see it?",
+          "For each DAMA knowledge area, who owns it? Who is responsible for its maturity? Do they understand how their work produces and consumes GCF context?",
+          "Do we have a dedicated team or individual responsible for the GCF, or is it fragmented across teams?",
+          "Which GCF layer is most mature? Which is the biggest gap?",
+          "Do our governance forums operate at the right level: principles at the top, practices in the middle, context work at the bottom? Or is everything mixed together?",
+          "If a new governance issue arose today, would we handle it by going back to ISO 38505 principles, using DAMA practices, and consulting the GCF? Or would we handle it ad hoc?"
+        ]
+      },
+      {
+        "id": "ch8-quality-context-mapping",
+        "chapter": 8,
+        "chapterTitle": "Context-Driven Data Quality",
+        "title": "Quality Context Mapping Template",
+        "intro": "Your immediate actions. Do these things in the next two months and you will have shifted your data quality thinking from technical correctness to business relevance.",
+        "actions": [
+          "Audit: List every data quality rule you have, who defined it, when it was last reviewed, and whether it is still actively used. Flag any rules where you are unsure.",
+          "Obsolescence: Remove rules that are no longer actively used. If nobody is checking it and nobody is acting on it, it is not a rule — it is baggage.",
+          "Business Ownership: For each data domain with quality rules, assign a business owner (not an IT owner) who defines what 'good' means. Meet quarterly.",
+          "Context Mapping: For your three highest-impact data domains, create a simple two-page document: what is this data used for, who depends on it, what different definitions of 'good quality' exist for different use cases.",
+          "Pilot: Pick one data source and add business context to your anomaly detection. Run traditional statistical and context-aware approaches in parallel for a month; count false positives before and after.",
+          "Metrics: Build one quality metric tied to a business outcome, not data conformance ('order-to-delivery accuracy', not 'SKU completeness').",
+          "Governance: Create a quarterly quality forum where business owners can raise quality issues and proposed rule changes."
+        ]
+      },
+      {
+        "id": "ch9-master-data-integration-roadmap",
+        "chapter": 9,
+        "chapterTitle": "Context-Driven Master Data Management",
+        "title": "Master Data Integration Roadmap",
+        "intro": "Your immediate actions. In two months you will have shifted your MDM thinking from isolation to integration.",
+        "actions": [
+          "Audit: Document your current master data model for your three most critical domains (customer, product, supplier): what fields exist, what systems are authoritative, how you handle conflicts, the business definition of a 'unique' entity.",
+          "Isolation Assessment: List every separate instance of master data you maintain for the same entity type. How many entities exist in one system but not another? How many exist in all with different IDs?",
+          "Matching Rules Inventory: Extract the matching rules you currently use, written in plain language. Document what works and what does not, and why.",
+          "Context Mapping: For your top master data domain, map the business processes that depend on it. What different views does each process need? Where would view definitions conflict?",
+          "Pilot: Take your top 1,000 records in your most problematic domain. Re-match them using context-aware rules instead of field-level similarity. Count the difference.",
+          "Governance: Create a quarterly master data governance forum where business owners can raise issues and proposed changes."
+        ]
+      },
+      {
+        "id": "ch10-regulation-to-data-impact-map",
+        "chapter": 10,
+        "chapterTitle": "Context-Driven Compliance & Privacy",
+        "title": "Regulation-to-Data Impact Map",
+        "intro": "Your immediate actions. In two months you will have shifted from reactive control to proactive governance.",
+        "actions": [
+          "Audit: List every regulation, standard, and compliance requirement that applies to you. For each, write one sentence: what does it regulate?",
+          "Data Mapping: For your top three regulations (by severity and business impact), identify what data is subject to them — be specific: table names, data fields, systems.",
+          "Control Inventory: For each top regulation, document the controls in place — technical, process, governance, people. Note: automated or manual? Continuously monitored or periodically checked?",
+          "Gap Assessment: For each regulation, compare controls against obligations. Where are you at risk? Prioritise by severity and business impact. Look for interactions where one regulation requires what another prohibits.",
+          "Pilot: Build one automated compliance assessment (for GDPR or AI Act). Implement enough of the GCF to power a query like 'Show me all [type of data] processed for [purpose] and flag those where [control] is missing.'",
+          "Governance: Create a quarterly compliance review forum including compliance, privacy, security, and business representatives."
+        ]
+      },
+      {
+        "id": "ch11-migration-readiness",
+        "chapter": 11,
+        "chapterTitle": "Context-Driven Data Architecture & Migration",
+        "title": "Migration Readiness",
+        "intro": "Your immediate actions. Do these six things before any RFP or tool selection, and you will shift from technical data movement to semantic transformation — reducing migration risk by roughly 60% and cutover time by 30%.",
+        "toolId": "migration-readiness-scorecard",
+        "actions": [
+          "Migration Risk Audit: Score yourself against the Migration Readiness Assessment. If below 70, work out your three biggest preparation gaps and put dates against fixing them.",
+          "Source Architecture Documentation: Write up the semantic data model for your current system's five most important entities — what they mean, not just what fields they have.",
+          "Target Analysis: Do the same for your target system. If you have not chosen a target yet, treat this as a forcing function.",
+          "Semantic Mapping Template: Create a field mapping template for your top 20 critical fields: legacy definition, target definition, transformation logic, business rationale, approval section.",
+          "Reusability Assessment: Identify which current definitions, rules, and policies can be reused. Estimate as a percentage of total migration work and calculate cost savings.",
+          "Reconciliation Design: Design your data reconciliation approach — record counts, attribute distributions, validation queries for your top five entities. Test with actual data."
+        ]
+      },
+      {
+        "id": "ch12-ai-analytics-governance",
+        "chapter": 12,
+        "chapterTitle": "Context-Driven AI & Analytics Governance",
+        "title": "AI & Analytics Governance",
+        "intro": "Your immediate actions. Do these six things in the next two months and you will shift from black box to governed AI and analytics.",
+        "toolId": "ai-governance-readiness-scorecard",
+        "actions": [
+          "AI & Analytics Inventory: Write down your ten most important models and dashboards. Rank by business impact and risk. For each, note what data it consumes and when somebody last reviewed it.",
+          "High-Risk Assessment: Take your three riskiest models and dig in. What training data, what features? How does performance vary across customer segments? Calculate whether any features correlate with protected attributes.",
+          "Policy Definition: For each high-risk model, write a policy rule — what it should and should not be allowed to do, what features are problematic. Run it by legal and compliance.",
+          "Governance Integration: Map your data governance policies to your AI governance. Which data governance policies should be affecting your models but are not being checked?",
+          "Monitoring: Get bias and drift monitoring running for your top three models. Set alert thresholds that mean something. Decide now who owns the investigation and what remediation looks like.",
+          "Explainability Audit: For your five most-used dashboards and three most-used models, write a plain-language explanation of each metric or prediction. Show it to a non-technical stakeholder; rewrite until they are not confused."
+        ]
+      },
+      {
+        "id": "ch13-ma-readiness",
+        "chapter": 13,
+        "chapterTitle": "Context-Driven M&A and Organisational Change",
+        "title": "M&A Readiness",
+        "intro": "Your immediate actions. Do these five things in the next two months and you will shift from data chaos to data readiness.",
+        "toolId": "ma-readiness-scorecard",
+        "actions": [
+          "M&A Readiness Assessment: Use the M&A Data Governance Readiness Checklist. Score yourself honestly. If below 60%, create a 12-month roadmap to improve.",
+          "Data Due Diligence Framework: If your organisation does acquisitions, create a GCF-based checklist and train your M&A team on it.",
+          "Current State GCF: If you do not have one yet, start now — pick your three most critical data domains and document what they mean (Business Ontology), where the data flows (Data Lineage), and who is responsible (Ownership).",
+          "Restructure Mapping: If a restructure is on the horizon, work through how it will affect data governance — which owners change, which policies break. Get it on paper before it happens.",
+          "Governance Continuity Protocol: Write a protocol for keeping governance alive during organisational upheaval — which processes carry on unchanged, which adapt, who tells whom."
+        ]
+      }
+    ]
+  },
+
+  "readinessChecklists": {
+    "label": "Readiness Assessment Checklists",
+    "source": "Chapter 11 (Migration Readiness Assessment Checklist); Chapter 12 (AI Governance Readiness Checklist); Chapter 13 (M&A Data Governance Readiness Checklist)",
+    "summary": "Three structured scorecards. Each has eight items scored 0–10, for a total range of 0–80. Score the items, sum them, and read the interpretation band.",
+    "checklists": [
+      {
+        "id": "migration-readiness-scorecard",
+        "name": "Migration Readiness Assessment",
+        "chapter": 11,
+        "perItemScale": [0, 10],
+        "itemCount": 8,
+        "totalRange": [0, 80],
+        "items": [
+          { "number": 1, "name": "Source GCF Completeness", "criterion": "Documented Business Ontology for all major entities." },
+          { "number": 2, "name": "Source Data Lineage", "criterion": "You can trace where each major entity comes from and where it flows." },
+          { "number": 3, "name": "Target Architecture Understanding", "criterion": "Documented target system's data model in semantic terms." },
+          { "number": 4, "name": "Semantic Mapping Completeness", "criterion": "For the top 50 fields by business impact, semantic mappings documented and approved." },
+          { "number": 5, "name": "Context Reusability Assessment", "criterion": "Identified and documented which definitions, rules, and policies transfer." },
+          { "number": 6, "name": "Business Owner Alignment", "criterion": "Key stakeholders (Finance, Sales, Supply Chain) reviewed and approved semantic mappings." },
+          { "number": 7, "name": "Data Quality Baseline", "criterion": "Measured data quality in source system and defined acceptable levels for target." },
+          { "number": 8, "name": "Reconciliation Plan", "criterion": "Designed detailed reconciliation approach with checks for each major entity." }
+        ],
+        "interpretationBands": [
+          { "label": "High risk — needs more preparation before cutover", "min": 0, "max": 69, "interpretation": "Below 70: you need more preparation before cutover. Below 60% overall (48 points): delay migration until you have improved preparation." },
+          { "label": "Adequate — strengthen weak areas", "min": 70, "max": 74, "interpretation": "Approaching target. Work out your biggest preparation gaps and put dates against fixing them." },
+          { "label": "Ready to proceed", "min": 75, "max": 80, "interpretation": "Target is 75+. Preparation is sufficient to enter the execution phase." }
+        ]
+      },
+      {
+        "id": "ai-governance-readiness-scorecard",
+        "name": "AI Governance Readiness Checklist",
+        "chapter": 12,
+        "perItemScale": [0, 10],
+        "itemCount": 8,
+        "totalRange": [0, 80],
+        "scoringNote": "Score each item 0–10 (0 = not done, 10 = fully implemented). Run through this before deploying any AI model to production.",
+        "items": [
+          { "number": 1, "name": "Training Data Inventory", "criterion": "Exactly what data was used to train the model: source system, time period, filtering logic, sample size, segment distribution." },
+          { "number": 2, "name": "Feature Justification", "criterion": "For each feature, why it was chosen, how it relates to the business objective, and whether it correlates with protected attributes." },
+          { "number": 3, "name": "Policy Compliance", "criterion": "You have a documented policy for models in this category and verified compliance (or documented exceptions)." },
+          { "number": 4, "name": "Bias Testing", "criterion": "Tested the model's performance across demographic or customer segments, and found it acceptable or documented bias and mitigation." },
+          { "number": 5, "name": "Explainability", "criterion": "When the model makes a high-risk decision, you can explain why — not just feature importance, but what the feature represents and means in your business." },
+          { "number": 6, "name": "Monitoring Plan", "criterion": "You have a plan for monitoring performance over time, including drift detection and performance tracking across segments." },
+          { "number": 7, "name": "Data Governance Integration", "criterion": "Your data governance policies are reviewed as part of AI governance, and AI models are reviewed as part of data governance." },
+          { "number": 8, "name": "Business Owner Approval", "criterion": "The business owner responsible for the decision the model informs has reviewed and approved the model's logic and performance." }
+        ],
+        "interpretationBands": [
+          { "label": "Governance work needed before deployment", "min": 0, "max": 49, "interpretation": "Below 50: you need governance work before deployment." },
+          { "label": "Acceptable risk — strengthen before scaling", "min": 50, "max": 69, "interpretation": "50–70: acceptable risk, but strengthen before scaling." },
+          { "label": "Deploy with confidence", "min": 70, "max": 80, "interpretation": "70+: deploy with confidence." }
+        ]
+      },
+      {
+        "id": "ma-readiness-scorecard",
+        "name": "M&A Data Governance Readiness Checklist",
+        "chapter": 13,
+        "perItemScale": [0, 10],
+        "itemCount": 8,
+        "totalRange": [0, 80],
+        "scoringNote": "Run through this before you sign an M&A contract or announce a restructure.",
+        "items": [
+          { "number": 1, "name": "Current State GCF", "criterion": "Documented Business Ontology for your five most critical entities." },
+          { "number": 2, "name": "Data Due Diligence Framework", "criterion": "Structured assessment approach for evaluating acquisition targets' data maturity." },
+          { "number": 3, "name": "Integration Complexity Assessment", "criterion": "Can estimate integration effort based on semantic alignment." },
+          { "number": 4, "name": "Ownership Clarity", "criterion": "Data ownership structure documented and understood — you know who owns what and why." },
+          { "number": 5, "name": "Governance Codification", "criterion": "Data governance policies can be updated when org structures change." },
+          { "number": 6, "name": "Integration Planning Process", "criterion": "Defined process for merging governance foundations post-acquisition." },
+          { "number": 7, "name": "Risk Assessment Capability", "criterion": "People who can assess data risks in acquisitions — trained and ready." },
+          { "number": 8, "name": "Restructuring Protocols", "criterion": "Protocol for updating ownership and governance when the organisation restructures." }
+        ],
+        "interpretationBands": [
+          { "label": "High risk — preparation needed before safe M&A", "min": 0, "max": 49, "interpretation": "Below 50: you need preparation before safe M&A. Below 60% (48 points): high risk." },
+          { "label": "Can proceed — expect complications", "min": 50, "max": 69, "interpretation": "50–70: you can do M&A but expect complications. Strengthen weak areas." },
+          { "label": "Ready", "min": 70, "max": 80, "interpretation": "70+: you are ready." }
+        ]
+      }
+    ]
+  },
+
+  "appendixTemplates": {
+    "label": "Appendix Templates",
+    "source": "Appendix A (Entity Definition Card); Appendix F (Deliverable Templates)",
+    "summary": "Reusable single-page templates that are the minimum viable structure for key governance deliverables.",
+    "templates": [
+      {
+        "id": "entity-definition-card",
+        "name": "Entity Definition Card",
+        "source": "Appendix A (Customer Domain Example); Appendix F (Phase 2 Deliverable)",
+        "purpose": "The minimum unit of explicit context for any core business entity. If a governance decision requires understanding this entity, the card should provide everything needed to start.",
+        "scope": "One card per core business entity (customer, product, supplier, account).",
+        "fields": [
+          { "id": "entityName", "label": "Entity name", "type": "text", "help": "The core business entity, e.g. Customer." },
+          { "id": "businessDefinition", "label": "Business definition", "type": "longtext", "help": "Two to three sentences in plain language. Example: 'A natural or legal person who has entered into a contractual relationship with the organisation for the provision of goods or services, or who has been formally onboarded as a prospect with verified identity.'" },
+          { "id": "authoritativeSources", "label": "Authoritative source system(s)", "type": "list", "help": "The systems of record. Example: Salesforce CRM (B2B), eCommerce Platform (B2C), Legacy Billing System (historical)." },
+          { "id": "keyRelationships", "label": "Key relationships to other entities", "type": "list", "help": "Example: Customer HAS one or more Accounts; Customer PLACES Orders; Customer BELONGS TO one Segment." },
+          { "id": "classification", "label": "Classification", "type": "list", "help": "Classification structures. Example: B2B Enterprise, B2B SME, B2C Individual, B2C Household." },
+          { "id": "criticalBusinessRules", "label": "Critical business rules", "type": "list", "help": "Example: every Customer must have at least one active Account; Customer ID must be unique across all source systems." },
+          { "id": "dataSteward", "label": "Data steward name and contact", "type": "text", "help": "The first point of contact for any question about this entity." },
+          { "id": "applicablePolicies", "label": "Applicable governance policies", "type": "list", "help": "Policies that govern this entity (access, retention, cross-border, quality thresholds)." },
+          { "id": "qualityStatus", "label": "Known quality issues and current quality score", "type": "longtext", "help": "Current quality score plus any open issues." },
+          { "id": "regulatorySensitivity", "label": "Regulatory sensitivity classification", "type": "text", "help": "How regulated this entity's data is, and under which regimes." },
+          { "id": "reviewCycle", "label": "Review cycle", "type": "text", "help": "Example: quarterly, or upon any source system change." }
+        ]
+      },
+      {
+        "id": "context-aware-decision-template",
+        "name": "Context-Aware Decision Template",
+        "source": "Appendix F (Phase 3 Deliverable)",
+        "purpose": "Structures a governance decision so it is made with visible context and documented for future reference. Used when a governance decision is requested — dataset access, policy change, definition update.",
+        "scope": "One per governance decision.",
+        "fields": [
+          { "id": "request", "label": "What is being requested", "type": "longtext", "help": "The decision being asked for." },
+          { "id": "affectedLayers", "label": "Which GCF layers are affected", "type": "layerMultiSelect", "help": "Select from the six layers: ontology, lineage, policies, quality, ownership, regulatory." },
+          { "id": "contextAvailable", "label": "What context is available for each affected layer", "type": "longtext", "help": "Document the context you do have for each affected layer." },
+          { "id": "contextMissing", "label": "What context is missing", "type": "longtext", "help": "Document the gaps — context you do not have but need." },
+          { "id": "consultations", "label": "Who needs to be consulted", "type": "list", "help": "People whose input or approval the decision requires." },
+          { "id": "decision", "label": "What the decision is", "type": "longtext", "help": "The decision reached." },
+          { "id": "rationale", "label": "What the rationale is", "type": "longtext", "help": "Why this decision was reached — the reasoning, for future reference." }
+        ]
+      },
+      {
+        "id": "decision-velocity-baseline",
+        "name": "Governance Decision Velocity Baseline",
+        "source": "Appendix F (Phase 1 Deliverable)",
+        "purpose": "Establishes where you are on governance decision speed and gives you a target to beat. Track ten recent governance decisions and calculate averages.",
+        "scope": "Ten recent governance decisions: dataset access approvals, policy changes, compliance reviews, definition updates.",
+        "rowCount": 10,
+        "fields": [
+          { "id": "whatWasDecided", "label": "What was decided", "type": "text", "help": "The governance decision." },
+          { "id": "whoWasInvolved", "label": "Who was involved", "type": "text", "help": "People and functions that participated." },
+          { "id": "durationDays", "label": "Duration from request to resolution (days)", "type": "number", "help": "Calendar days from initial request to final resolution." },
+          { "id": "escalations", "label": "Number of escalations required", "type": "number", "help": "How many escalations were needed to resolve it." },
+          { "id": "documentedAndCommunicated", "label": "Outcome documented and communicated?", "type": "boolean", "help": "Whether the outcome was documented and communicated to stakeholders." }
+        ],
+        "calculatedMetrics": [
+          { "id": "avgDurationDays", "label": "Average decision duration (days)", "formula": "mean of durationDays" },
+          { "id": "avgEscalations", "label": "Average escalations per decision", "formula": "mean of escalations" },
+          { "id": "documentedRate", "label": "Share of decisions documented & communicated", "formula": "count(documentedAndCommunicated = true) / rowCount" }
+        ]
+      },
+      {
+        "id": "fragmentation-heat-map",
+        "name": "Fragmentation Heat Map",
+        "source": "Chapter 1 (Figure 1.1, Monday Morning Deliverable); Appendix F (Phase 1 Deliverable)",
+        "purpose": "A diagnostic for the coordination cost of governance silos. A grid mapping which governance functions touch which data domains, colour-coded by the health of that touch point. The count of yellow and red cells is your fragmentation score.",
+        "structure": {
+          "columnsLabel": "Critical data domains (across the top)",
+          "defaultColumns": ["Customer", "Product", "Supplier", "Transaction", "Operational data"],
+          "rowsLabel": "Governance functions (down the left)",
+          "defaultRows": ["Quality", "Privacy", "Master data", "Analytics", "Architecture", "Compliance", "Security", "AI governance", "Metadata"],
+          "cellStates": [
+            { "id": "none", "label": "No touch point", "description": "This function has no responsibility, influence, or touch point for this data domain.", "color": "#e8e8e8", "scoreWeight": 0 },
+            { "id": "green", "label": "Green — clear", "description": "Clear ownership, decision rights, documented process.", "color": "#2e7d32", "scoreWeight": 0 },
+            { "id": "yellow", "label": "Yellow — ambiguous", "description": "Unclear ownership, ambiguous decision rights, ad hoc decision-making.", "color": "#f9a825", "scoreWeight": 1 },
+            { "id": "red", "label": "Red — conflict", "description": "Active conflict, confusion, or disagreement about how decisions happen.", "color": "#c62828", "scoreWeight": 1 }
+          ],
+          "scoreRule": "Fragmentation score = count of yellow cells + count of red cells. Each represents a gap, ambiguity, or conflict — coordination overhead, meeting time, context loss.",
+          "readingGuidance": "Look at columns (data domains) where multiple functions have a coloured cell. A domain touched by four functions (one green, two yellow, one red) is your coordination nightmare — that is where Tuesday morning escalations start. Columns with multiple coloured cells are your priority integration targets."
+        }
+      }
+    ]
+  }
+}
