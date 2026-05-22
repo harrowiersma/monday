@@ -71,6 +71,9 @@ export function usePersistentDoc<T>(
     hasDoc(toolId) ? Date.now() : null,
   )
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // Always holds the latest doc, so the flush handlers below save current data.
+  const docRef = useRef(doc)
+  docRef.current = doc
 
   const setDoc = useCallback(
     (next: T | ((prev: T) => T)) => {
@@ -81,16 +84,33 @@ export function usePersistentDoc<T>(
     [],
   )
 
+  // Debounced save while the user is editing.
   useEffect(() => {
     if (timer.current) clearTimeout(timer.current)
     timer.current = setTimeout(() => {
-      saveDoc(toolId, doc)
+      saveDoc(toolId, docRef.current)
       setSavedAt(Date.now())
     }, 350)
     return () => {
       if (timer.current) clearTimeout(timer.current)
     }
   }, [toolId, doc])
+
+  // Flush immediately when the tool unmounts (navigating away) or the page is
+  // hidden/closed — so even the last keystrokes are never lost.
+  useEffect(() => {
+    const flush = () => saveDoc(toolId, docRef.current)
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flush()
+    }
+    window.addEventListener('pagehide', flush)
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      window.removeEventListener('pagehide', flush)
+      document.removeEventListener('visibilitychange', onVisibility)
+      flush()
+    }
+  }, [toolId])
 
   return [doc, setDoc, savedAt]
 }
