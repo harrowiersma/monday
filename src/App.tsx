@@ -133,6 +133,14 @@ export default function App() {
             ☰
           </button>
           <strong>Monday Morning Companion</strong>
+          <span className="spacer" />
+          <button
+            aria-label="Switch colour theme"
+            title="Switch colour theme"
+            onClick={toggleTheme}
+          >
+            {theme === 'dark' ? '☀' : '☾'}
+          </button>
         </header>
 
         <Routes>

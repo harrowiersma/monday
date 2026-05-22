@@ -28,6 +28,7 @@
   --cell-none-hover: #243049;
   --track: #1d2740;
   --chip: #3a4a63;
+  --book-text: #d9c79f;
   --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
     Arial, sans-serif;
 }
@@ -44,13 +45,13 @@
   --muted: #697889;
   --line: #d7dde5;
   --line-soft: #e5e9ef;
-  --accent: #1c84c7;
-  --accent-bright: #1773b0;
+  --accent: #1773b0;
+  --accent-bright: #115d8e;
   --accent-dim: #7cbbe2;
   --heading: #15243a;
-  --green: #1f9d44;
-  --amber: #b6810a;
-  --red: #d23b3b;
+  --green: #178a3a;
+  --amber: #9c6f08;
+  --red: #c8302f;
   --green-soft: #e4f4e8;
   --amber-soft: #f7eed3;
   --red-soft: #fae3e3;
@@ -61,6 +62,7 @@
   --cell-none-hover: #dbe1ea;
   --track: #dde2ea;
   --chip: #c4cdda;
+  --book-text: #7a5c1f;
 }
 
 * {
@@ -157,30 +159,30 @@ h4 {
   background: none;
   border: none;
   font-family: var(--font);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #5f7388;
+  color: #8597ab;
   padding: 16px 12px 6px;
   cursor: pointer;
 }
 .nav-group-label:hover {
-  color: #93a4b8;
+  color: #aebccc;
 }
 .nav-group-chevron {
-  font-size: 8px;
+  font-size: 9px;
   color: var(--accent);
 }
 .nav-link {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 12px;
+  padding: 10px 12px;
   border-radius: 8px;
+  font-size: 14px;
   color: #c2cedb;
   text-decoration: none;
-  font-size: 13.5px;
   margin-bottom: 2px;
 }
 .nav-link:hover {
@@ -331,7 +333,7 @@ h4 {
   background: rgba(246, 179, 40, 0.06);
   border-left-color: var(--amber);
   font-style: italic;
-  color: #d9c79f;
+  color: var(--book-text);
 }
 .muted {
   color: var(--muted);
@@ -617,7 +619,8 @@ table.heatmap thead th:first-child {
   font-size: 38px;
   font-weight: 800;
   line-height: 1;
-  color: var(--accent-bright);
+  /* fixed bright cyan — the score box is dark navy in both themes */
+  color: #5cc7ff;
 }
 .score-num .lbl {
   font-size: 12px;
@@ -877,6 +880,28 @@ input[type='range'] {
   }
   .page-head h1 {
     font-size: 22px;
+  }
+  /* Bigger, easier-to-tap menu on phones */
+  .sidebar {
+    width: 290px;
+  }
+  .nav {
+    padding: 12px 12px;
+  }
+  .nav-link {
+    font-size: 15.5px;
+    padding: 13px 14px;
+    gap: 12px;
+  }
+  .nav-ico {
+    font-size: 17px;
+  }
+  .nav-group-label {
+    font-size: 12px;
+    padding: 18px 14px 8px;
+  }
+  .brand-title {
+    font-size: 17px;
   }
 }
 .scrim {
