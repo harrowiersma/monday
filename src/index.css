@@ -586,9 +586,9 @@ table.heatmap thead th:first-child {
    get the room they need. */
 .heatmap-fn thead th:first-child,
 .heatmap-fn tbody th {
-  width: 124px;
-  min-width: 124px;
-  max-width: 124px;
+  width: 116px;
+  min-width: 116px;
+  max-width: 116px;
 }
 
 .legend {

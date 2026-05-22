@@ -226,7 +226,9 @@ export default function HeatMap() {
           <table className="heatmap heatmap-fn">
             <thead>
               <tr>
-                <th>Function</th>
+                <th>
+                  Function&nbsp;╲<br />Data&nbsp;domain
+                </th>
                 {doc.columns.map((c) => (
                   <th key={c.id}>{c.label}</th>
                 ))}
