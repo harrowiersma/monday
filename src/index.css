@@ -582,6 +582,15 @@ table.heatmap thead th:first-child {
   z-index: 3;
 }
 
+/* Heat-map function column — keep it compact so the data-domain columns
+   get the room they need. */
+.heatmap-fn thead th:first-child,
+.heatmap-fn tbody th {
+  width: 124px;
+  min-width: 124px;
+  max-width: 124px;
+}
+
 .legend {
   display: flex;
   gap: 16px;

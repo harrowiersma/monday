@@ -223,10 +223,10 @@ export default function HeatMap() {
         </div>
 
         <div className="heatmap-wrap">
-          <table className="heatmap">
+          <table className="heatmap heatmap-fn">
             <thead>
               <tr>
-                <th>Governance function ╲ Data domain</th>
+                <th>Function</th>
                 {doc.columns.map((c) => (
                   <th key={c.id}>{c.label}</th>
                 ))}
